@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>static-rect</title>
+    </head>
+<body>
+  <h1>Static diagram. OOP JS.</h1>
+
+     <svg width="1200" height="450" id="forDraw">           
+     </svg>
+          
+<script>
+    var recWidth = '200';
+    var recHeight = '80';
+    function Rectangle(width,height, location={x: 400, y: 50},style='draggable', fill = 'red', stroke = 'green',id='ivan') {
+   this.width = recWidth;
+   this.height =  recHeight;  
+   this.location = location;
+   this.style = style; 
+   this.fill = fill;
+   this.stroke = stroke;
+   this.id = id;
+   
+     this.draw = function() { 
+ forDraw.innerHTML += `<rect  width="${this.width}" height="${this.height}"  x="${this.location.x}" y="${this.location.y}" 
+  class="${this.style}" fill="${this.fill}" stroke="${this.stroke}" id="${this.id}" />`;
+
+     }	
+}
+Rectangle.prototype.draw = function() {
+   if (forDraw.getElementById(this.id)) forDraw.getElementById(this.id).remove();
+   forDraw.innerHTML += `<rect  width="${this.width}" height="${this.height}"  x="${this.location.x}" y="${this.location.y}" 
+  class="${this.style}" fill="${this.fill}" stroke="${this.stroke}" id="${this.id}" />`;
+}
+var rec1 = new Rectangle();
+rec1.draw();
+var rec2 = new Rectangle(150,90, {x: 300, y:300}, style='draggable','yellow', 'red','petro');
+rec2.draw();
+var rec3 = new Rectangle(150,90, {x: 550, y:300}, style='draggable','green', 'blue','dima');
+rec3.draw();
+
+function Lines(x1=rec1.location.x+100, y1=rec1.location.y+80, x2=rec2.location.x+100, y2=rec2.location.y, stroke='blue',id='l1') {
+     this.x1 = x1;
+   this.y1 = y1;
+   this.x2 = x2;
+   this.y2 = y2;   
+   this.stroke = stroke;
+   this.id = id;
+   this.draw = function() {
+  forDraw.innerHTML += `<line x1="${this.x1}" y1="${this.y1}"  x2="${this.x2}" y2="${this.y2}" 
+ stroke="${this.stroke}" id="${this.id}" />`;   
+    }
+   }
+  
+var connect1 = new Lines();
+connect1.draw();
+var connect2 = new Lines(rec1.location.x+100,rec1.location.y+80, rec3.location.x+100, rec3.location.y,stroke='green',id='l2');
+connect2.draw();
+</script>
+</body>
+</html>
